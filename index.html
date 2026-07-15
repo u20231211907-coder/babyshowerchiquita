@@ -341,7 +341,8 @@
         const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnYWJ2dm14eGhkZ3BxZXdjamh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwNjAwODEsImV4cCI6MjA5OTYzNjA4MX0.vAwlSSBNJDTg4bm0ZG6QB3O96kJjaHkVSMijPbOf-VU";
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // CORRECCIÓN CLAVE: Usar 'supabaseClient' para evitar conflictos de variables
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const giftForm = document.getElementById('giftForm');
         const giftsList = document.getElementById('giftsList');
@@ -349,7 +350,7 @@
         // Leer de la base de datos real en Supabase para que todos vean lo mismo
         async function loadGiftsFromDatabase() {
             try {
-                let { data: gifts, error } = await supabase
+                let { data: gifts, error } = await supabaseClient
                     .from('gifts')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -385,6 +386,7 @@
                 });
             } catch (err) {
                 console.error(err);
+                giftsList.innerHTML = `<p style="color: red; text-align: center; font-size: 0.9rem;">Error crítico al cargar lista.</p>`;
             }
         }
 
@@ -406,7 +408,7 @@
                 }
 
                 // Guardar en tu tabla 'gifts' de Supabase
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('gifts')
                     .insert([{ name: name, gift_item: gift_item }]);
 
