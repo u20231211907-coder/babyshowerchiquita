@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower Chiquita</title>
     <style>
-        /* Variables de color y fuentes */
+        /* Variables de estilo principal */
         :root {
             --bg-color: #faf6f0;
             --card-bg: #ffffff;
-            --text-dark: #4a3e3d;
-            --text-muted: #8c7a78;
-            --accent-gold: #e2a84b;
-            --honeycomb-color: #fbf1e3;
+            --text-dark: #504443;
+            --text-muted: #837472;
+            --accent-gold: #dca03f;
+            --accent-light: #fef8ed;
+            --honeycomb-color: #fcefdc;
         }
 
         * {
@@ -29,97 +30,107 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
 
+        /* Contenedor tipo tarjeta */
         .invitation-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             background: var(--card-bg);
-            border-radius: 28px;
+            border-radius: 35px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(74, 62, 61, 0.08);
-            border: 1px solid rgba(226, 168, 75, 0.15);
+            box-shadow: 0 12px 35px rgba(80, 68, 67, 0.08);
+            border: 1px solid rgba(220, 160, 63, 0.12);
         }
 
-        /* 1. SECCIÓN SUPERIOR: Panal completo y Abejita tierna */
+        /* 1. SECCIÓN SUPERIOR CON PATRÓN DE PANAL REAL */
         .hero-banner {
             position: relative;
             width: 100%;
-            height: 280px;
-            /* Patrón de panal real hecho con CSS puro que cubre TODO el recuadro */
+            height: 250px;
             background-color: var(--honeycomb-color);
             background-image: 
                 radial-gradient(circle at 50% 50%, transparent 45%, var(--card-bg) 45%, var(--card-bg) 55%, transparent 55%),
                 radial-gradient(circle at 100% 100%, transparent 45%, var(--card-bg) 45%, var(--card-bg) 55%, transparent 55%),
                 radial-gradient(circle at 0% 0%, transparent 45%, var(--card-bg) 45%, var(--card-bg) 55%, transparent 55%);
-            background-size: 30px 52px;
-            background-position: 0 0, 15px 26px, 15px 26px;
+            background-size: 28px 48px;
+            background-position: 0 0, 14px 24px, 14px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            border-bottom: 3px dashed var(--accent-gold);
+            padding: 10px;
+            border-bottom: 4px dashed var(--accent-gold);
         }
 
-        /* Contenedor de la abejita flotante */
+        /* Contenedor de la abejita tierna */
         .bee-illustration {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(0 6px 12px rgba(226, 168, 75, 0.25));
+            width: 110px;
+            height: 110px;
+            filter: drop-shadow(0 5px 10px rgba(220, 160, 63, 0.2));
             animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-7px); }
         }
 
         .hero-title {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
             color: var(--text-dark);
             text-align: center;
-            margin-top: 15px;
-            line-height: 1.2;
-            text-shadow: 1px 1px 2px white, -1px -1px 2px white;
+            margin-top: 12px;
+            line-height: 1.25;
+            padding: 0 15px;
         }
 
-        /* 2. CONTENIDO INFERIOR */
+        /* 2. SECCIÓN DE CONTENIDO */
         .content-section {
-            padding: 30px 24px;
+            padding: 25px 20px;
             text-align: center;
         }
 
         .welcome-text {
-            font-size: 1.1rem;
+            font-size: 1.12rem;
             line-height: 1.6;
             color: var(--text-dark);
-            margin-bottom: 20px;
-        }
-
-        .gift-info {
-            background-color: #fffaf2;
-            border: 1px dashed var(--accent-gold);
-            border-radius: 16px;
-            padding: 15px;
             margin-bottom: 25px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            padding: 0 5px;
         }
 
-        .gift-info strong {
+        /* CUADRO DE REGALOS (RESTAURADO Y MEJORADO) */
+        .gift-box {
+            background-color: var(--accent-light);
+            border: 2px dashed var(--accent-gold);
+            border-radius: 24px;
+            padding: 22px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(220, 160, 63, 0.03);
+        }
+
+        .gift-box p {
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: var(--text-dark);
+        }
+
+        /* Destacado de pañales amarillo */
+        .highlight-accent {
             color: var(--accent-gold);
+            font-weight: 700;
         }
 
+        /* NOTA FINAL */
         .footer-note {
-            font-size: 0.85rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
             font-style: italic;
-            border-top: 1px solid #f3ebe1;
-            padding-top: 15px;
+            line-height: 1.5;
+            border-top: 1px solid #f5ebe0;
+            padding-top: 18px;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -133,21 +144,25 @@
                 <ellipse cx="38" cy="35" rx="14" ry="10" fill="#E6F4F8" stroke="#B8DCE5" stroke-width="2.5" transform="rotate(-30 38 35)"/>
                 <ellipse cx="62" cy="35" rx="14" ry="10" fill="#E6F4F8" stroke="#B8DCE5" stroke-width="2.5" transform="rotate(30 62 35)"/>
                 
-                <path d="M42 35 C40 25, 33 24, 31 27" stroke="#4A3E3D" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="30" cy="28" r="3.5" fill="#E2A84B"/>
+                <path d="M42 35 C40 25, 33 24, 31 27" stroke="#504443" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="30" cy="28" r="3.5" fill="#dca03f"/>
                 
-                <path d="M58 35 C60 25, 67 24, 69 27" stroke="#4A3E3D" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="70" cy="28" r="3.5" fill="#E2A84B"/>
+                <path d="M58 35 C60 25, 67 24, 69 27" stroke="#504443" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="70" cy="28" r="3.5" fill="#dca03f"/>
 
                 <ellipse cx="50" cy="55" rx="24" ry="20" fill="#FFD56B"/>
                 
-                <path d="M38 40 C43 38, 57 38, 62 40 C61 42, 39 42, 38 40 Z" fill="#4A3E3D"/>
-                <path d="M30 52 C38 48, 62 48, 70 52 C68 56, 32 56, 30 52 Z" fill="#4A3E3D"/>
-                <path d="M34 64 C40 60, 60 60, 66 64 C62 68, 38 68, 34 64 Z" fill="#4A3E3D"/>
+                <path d="M38 40 C43 38, 57 38, 62 40 C61 42, 39 42, 38 40 Z" fill="#504443"/>
+                <path d="M30 52 C38 48, 62 48, 70 52 C68 56, 32 56, 30 52 Z" fill="#504443"/>
+                <path d="M34 64 C40 60, 60 60, 66 64 C62 68, 38 68, 34 64 Z" fill="#504443"/>
 
-                <circle cx="42" cy="48" r="3.5" fill="#4A3E3D"/>
-                <circle cx="41" cy="46.5" r="1.2" fill="#FFFFFF"/> <circle cx="58" cy="48" r="3.5" fill="#4A3E3D"/>
-                <circle cx="57" cy="46.5" r="1.2" fill="#FFFFFF"/> <path d="M47 53 Q50 56 53 53" stroke="#4A3E3D" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="42" cy="48" r="3.5" fill="#504443"/>
+                <circle cx="41" cy="46.5" r="1.2" fill="#FFFFFF"/>
+                
+                <circle cx="58" cy="48" r="3.5" fill="#504443"/>
+                <circle cx="57" cy="46.5" r="1.2" fill="#FFFFFF"/>
+
+                <path d="M47 53 Q50 56 53 53" stroke="#504443" stroke-width="2" stroke-linecap="round" fill="none"/>
 
                 <circle cx="37" cy="51" r="2.5" fill="#FF8E95" opacity="0.6"/>
                 <circle cx="63" cy="51" r="2.5" fill="#FF8E95" opacity="0.6"/>
@@ -161,8 +176,10 @@
                 Hola, hola, hola. Qué alegría tenerte aquí celebrando con nosotros la pronta llegada de nuestra bebé.
             </p>
             
-            <div class="gift-info">
-                Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, el regalo es completamente a tu gusto, agradeciendo de corazón que lo acompañes con pañales preferiblemente <strong>etapa 2-3-4</strong>.
+            <div class="gift-box">
+                <p>
+                    Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, el regalo es completamente a tu gusto, agradeciendo de corazón que lo acompañes con pañales preferiblemente <span class="highlight-accent">etapa 2-3-4</span>.
+                </p>
             </div>
 
             <p class="footer-note">
