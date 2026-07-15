@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower - Lista de Regalos</title>
+    <!-- Google Fonts para la tipografía elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5efe6;
+            --card-bg: #fffbf7;
+            --text-dark: #3d342e;
+            --text-muted: #705e49;
+            --accent: #c9b497;
+            --border-color: #ebd9c0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Contenedor principal de dos columnas */
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* COLUMNA IZQUIERDA: DISEÑO */
+        .left-column {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+        }
+
+        .hero-card {
+            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519689680058-324335c77ebe?q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 40px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .hero-card h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #ffffff;
+            line-height: 1.2;
+            font-weight: 500;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-box {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* COLUMNA DERECHA: MURO INTERACTIVO */
+        .right-column {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--card-bg);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        .wall-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .wall-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        /* Formulario para agregar regalo */
+        .gift-form {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--text-muted);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--text-dark);
+        }
+
+        /* Lista de mensajes tipo tarjetas */
+        .gifts-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .gift-card {
+            background-color: #ffffff;
+            border-left: 5px solid var(--accent);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border-top: 1px solid #f0e9df;
+            border-right: 1px solid #f0e9df;
+            border-bottom: 1px solid #f0e9df;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gift-card-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .gift-details h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gift-details p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-top: 3px;
+        }
+
+        /* Responsivo para celulares */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-column {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+            }
+            .right-column {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px;
+            }
+            .hero-card {
+                height: 300px;
+                padding: 20px;
+            }
+            .hero-card h1 {
+                font-size: 2rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- COLUMNA IZQUIERDA -->
+        <div class="left-column">
+            <div class="hero-card">
+                <h1>Una princesita<br>llega a endulzar<br>nuestras vidas</h1>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <p>Hola, hola, hola. Qué alegría tenerte aquí celebrando con nosotros la pronta llegada de nuestra bebé.</p>
+                    <br>
+                    <p>Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, agradecemos de corazón pañales preferiblemente etapa 2-3-4.</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Los papás no tienen acceso directo a esta lista</strong>, así que puedes escribir con total tranquilidad.</p>
+                    <br>
+                    <p>Registrar tu detalle ayuda a que los demás invitados revisen lo ya confirmado y elijan sin repetir.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+        <div class="right-column">
+            <div class="wall-header">
+                <h2>Regalos Confirmados 🎁</h2>
+            </div>
+
+            <!-- Formulario interactivo -->
+            <form class="gift-form" id="giftForm">
+                <div class="form-group">
+                    <label for="nameInput">Tu Nombre (Opcional / Familiar)</label>
+                    <input type="text" id="nameInput" placeholder="Ej. Juancho, Margarita e Isabella" required>
+                </div>
+                <div class="form-group">
+                    <label for="giftInput">¿Qué regalo vas a llevar?</label>
+                    <input type="text" id="giftInput" placeholder="Ej. Coche paseador o Pañales Etapa 3" required>
+                </div>
+                <button type="submit" class="submit-btn">Confirmar Regalo ✨</button>
+            </form>
+
+            <!-- Contenedor donde se listan los regalos en tiempo real -->
+            <div class="gifts-list" id="giftsList">
+                <!-- Los regalos se cargarán aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Integración de Supabase para la base de datos en tiempo real -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // CONFIGURACIÓN DE TU BASE DE DATOS SUPABASE
+        const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
+        const SUPABASE_ANON_KEY = "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnYWJ2dm14eGhkZ3BxZXdjamh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwNjAwODEsImV4cCI6Mj95NjMwODF9.vAwlSSBNJDTg4bm0ZG6QB3O96kJjaHkVSMijPbOf-VU";
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const giftForm = document.getElementById('giftForm');
+        const giftsList = document.getElementById('giftsList');
+
+        // Función para cargar los regalos desde la base de datos
+        async function loadGifts() {
+            let { data: gifts, error } = await supabase
+                .from('gifts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error("Error cargando regalos:", error);
+                return;
+            }
+
+            giftsList.innerHTML = '';
+            gifts.forEach(gift => {
+                const firstLetter = gift.name ? gift.name.charAt(0) : 'A';
+                const card = document.createElement('div');
+                card.className = 'gift-card';
+                card.innerHTML = `
+                    <div class="gift-card-content">
+                        <div class="avatar">${firstLetter}</div>
+                        <div class="gift-details">
+                            <h4>${gift.name || 'Anónimo'}</h4>
+                            <p>🎁 ${gift.gift_item}</p>
+                        </div>
+                    </div>
+                `;
+                giftsList.appendChild(card);
+            });
+        }
+
+        // Evento al enviar el formulario (guardar nuevo regalo)
+        giftForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value || 'Anónimo';
+            const gift_item = document.getElementById('giftInput').value;
+
+            const { data, error } = await supabase
+                .from('gifts')
+                .insert([{ name, gift_item }]);
+
+            if (error) {
+                alert("Hubo un error al guardar tu regalo. Intenta de nuevo.");
+                console.error(error);
+            } else {
+                giftForm.reset();
+                loadGifts(); // Recargar la lista interactiva
+            }
+        });
+
+        // Cargar los datos al abrir la página
+        loadGifts();
+    </script>
+</body>
+  </html>
+  
