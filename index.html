@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Lista de Regalos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Variables de estilo principal */
         :root {
-            --bg-color: #fdfaf2;
+            --bg-color: #fcf6eb;
             --card-bg: #ffffff;
             --text-dark: #4a3d30;
             --text-muted: #7d6c5a;
@@ -24,7 +23,7 @@
         }
 
         body {
-            font-family: 'Fredoka', 'Montserrat', sans-serif;
+            font-family: 'Fredoka', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-dark);
             display: flex;
@@ -34,7 +33,6 @@
             padding: 15px;
         }
 
-        /* Contenedor tipo tarjeta */
         .invitation-container {
             width: 100%;
             max-width: 420px;
@@ -45,13 +43,13 @@
             border: 1px solid rgba(242, 186, 54, 0.12);
         }
 
-        /* 1. SECCIÓN SUPERIOR CON PANAL DE ABEJA Y ABEJA TIERNA */
+        /* BANNER CON FONDO DE HEXÁGONOS/PANAL AMARILLO */
         .hero-banner {
             position: relative;
             width: 100%;
-            height: 250px;
-            /* Fondo de panal CSS */
-            background-color: #fcefdc;
+            height: 280px;
+            background-color: #fbe6c4;
+            /* Patrón geométrico de panal de abejas */
             background-image: 
                 radial-gradient(circle at 50% 50%, transparent 45%, #ffffff 45%, #ffffff 55%, transparent 55%),
                 radial-gradient(circle at 100% 100%, transparent 45%, #ffffff 45%, #ffffff 55%, transparent 55%),
@@ -62,49 +60,84 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 15px;
             border-bottom: 4px dashed #f2ba36;
         }
 
-        /* Abejita tierna SVG flotante */
+        /* La abejita hermosa y tierna de la foto */
         .bee-illustration {
-            width: 110px;
-            height: 110px;
-            filter: drop-shadow(0 5px 10px rgba(242, 186, 54, 0.2));
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 6px 12px rgba(242, 186, 54, 0.3));
             animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-7px); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
         }
 
         .hero-title {
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #5c493c;
+            color: #4a3d30;
             text-align: center;
-            margin-top: 12px;
+            margin-top: 15px;
             line-height: 1.25;
-            padding: 0 15px;
-            text-shadow: 1px 1px 2px white;
+            padding: 0 10px;
         }
 
-        /* 2. COLUMNA DERECHA: MURO INTERACTIVO */
         .content-section {
             padding: 25px 20px;
         }
 
-        .wall-header {
+        /* Texto de bienvenida */
+        .welcome-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed var(--border-color);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .welcome-box p {
+            margin-bottom: 15px;
+        }
+
+        .welcome-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box {
+            border: 2px dashed var(--accent);
+            background-color: var(--accent-light);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box strong {
+            color: #b88d2a;
+        }
+
+        .wall-header {
+            margin: 30px 0 15px 0;
             text-align: center;
         }
 
         .wall-header h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         /* Formulario para agregar regalo */
@@ -168,9 +201,9 @@
             transform: scale(0.98);
         }
 
-        /* Lista de mensajes tipo tarjetas */
+        /* Lista de regalos agregados */
         .gifts-list {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -185,8 +218,6 @@
             border-top: 1px solid #f9f5f0;
             border-right: 1px solid #f9f5f0;
             border-bottom: 1px solid #f9f5f0;
-            display: flex;
-            align-items: center;
         }
 
         .gift-card-content {
@@ -222,14 +253,13 @@
             margin-top: 2px;
         }
 
-        /* Responsivo para celulares */
-        @media (max-width: 500px) {
-            .hero-card {
-                height: 380px;
-            }
-            .hero-title {
-                font-size: 1.3rem;
-            }
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
         }
     </style>
 </head>
@@ -270,6 +300,16 @@
         </div>
 
         <div class="content-section">
+            
+            <div class="welcome-box">
+                <p>Hola, hola, hola. Qué alegría tenerte aquí celebrando con nosotros la pronta llegada de nuestra bebé.</p>
+                <p>Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, el regalo es completamente a tu gusto, agradeciendo de corazón que lo acompañes con pañales preferiblemente etapa 2-3-4.</p>
+                
+                <div class="highlight-box">
+                    <strong>Los papás no tienen acceso directo a esta lista, así que puedes escribir con total tranquilidad.</strong>
+                </div>
+            </div>
+
             <div class="wall-header">
                 <h2>Regalos Confirmados 🎁</h2>
             </div>
@@ -288,115 +328,92 @@
 
             <div class="gifts-list" id="giftsList">
                 </div>
+
+            <p class="footer-note">¡Gracias por acompañarnos! 💛</p>
         </div>
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
-        const SUPABASE_ANON_KEY = "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnYWJ2dm14eGhkZ3BxZXdjamh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwNjAwODEsImV4cCI6Mj95NjMwODF9.vAwlSSBNJDTg4bm0ZG6QB3O96kJjaHkVSMijPbOf-VU";
-
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         const giftForm = document.getElementById('giftForm');
         const giftsList = document.getElementById('giftsList');
 
-        // Cargar los regalos existentes de la base de datos
-        async function loadGifts() {
-            try {
-                let { data: gifts, error } = await supabase
-                    .from('gifts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    console.error("Error cargando regalos:", error);
-                    giftsList.innerHTML = `<p style="color: red; text-align: center; font-size: 0.9rem;">Error al conectar con la base de datos.</p>`;
-                    return;
-                }
-
-                giftsList.innerHTML = '';
-                
-                if (!gifts || gifts.length === 0) {
-                    giftsList.innerHTML = `<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; margin-top: 20px;">¡Aún no hay regalos! Sé el primero en confirmar ✨</p>`;
-                    return;
-                }
-
-                gifts.forEach(gift => {
-                    const displayName = gift.name && gift.name.trim() !== '' ? gift.name : 'Anónimo';
-                    const firstLetter = displayName.charAt(0);
-                    const card = document.createElement('div');
-                    card.className = 'gift-card';
-                    card.innerHTML = `
-                        <div class="gift-card-content">
-                            <div class="avatar">${firstLetter}</div>
-                            <div class="gift-details">
-                                <h4>${displayName}</h4>
-                                <p>🎁 ${gift.gift_item}</p>
-                            </div>
-                        </div>
-                    `;
-                    giftsList.appendChild(card);
-                });
-            } catch (err) {
-                console.error("Error general en loadGifts:", err);
+        // Cargar los regalos guardados localmente
+        function loadGiftsLocal() {
+            // Obtenemos los regalos de la memoria local
+            const savedGifts = JSON.parse(localStorage.getItem('my_shower_gifts')) || [];
+            
+            giftsList.innerHTML = '';
+            
+            if (savedGifts.length === 0) {
+                giftsList.innerHTML = `<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; margin-top: 20px;">¡Aún no hay regalos! Sé el primero en confirmar ✨</p>`;
+                return;
             }
-        }
 
-        // Evento al enviar el formulario (BLINDADO CONTRA RECARGAS)
-        if (giftForm) {
-            giftForm.addEventListener('submit', async (e) => {
-                // EVITAR que la página se recargue pase lo que pase
-                e.preventDefault();
-                e.stopPropagation();
-                
-                try {
-                    // Buscamos los inputs por sus IDs exactos
-                    const nameInput = document.getElementById('name');
-                    const giftInput = document.getElementById('gift');
-
-                    if (!giftInput) {
-                        alert("Error: No se pudo encontrar el campo del regalo en el diseño.");
-                        return;
-                    }
-
-                    let name = nameInput ? nameInput.value.trim() : 'Anónimo';
-                    if (name === '') name = 'Anónimo';
-                    
-                    const gift_item = giftInput.value.trim();
-                    if (gift_item === '') {
-                        alert("Por favor, escribe qué regalo vas a llevar.");
-                        return;
-                    }
-
-                    // Insertar datos en Supabase
-                    const { data, error } = await supabase
-                        .from('gifts')
-                        .insert([{ name: name, gift_item: gift_item }])
-                        .select();
-
-                    if (error) {
-                        alert("Error de base de datos: " + error.message);
-                        console.error(error);
-                    } else {
-                        // Limpiar formulario sin recargar
-                        if (nameInput) nameInput.value = '';
-                        giftInput.value = '';
-                        alert("¡Regalo confirmado con éxito! 🎉");
-                        // Actualizar la lista en pantalla inmediatamente
-                        await loadGifts();
-                    }
-                } catch (err) {
-                    // Si ocurre un error en el código, lo atrapamos aquí para que no recargue la página y lo muestre
-                    alert("Ocurrió un error en el script: " + err.message);
-                    console.error(err);
-                }
+            // Recorremos los regalos guardados para pintarlos
+            savedGifts.forEach(gift => {
+                const displayName = gift.name && gift.name.trim() !== '' ? gift.name : 'Anónimo';
+                const firstLetter = displayName.charAt(0).toUpperCase();
+                const card = document.createElement('div');
+                card.className = 'gift-card';
+                card.innerHTML = `
+                    <div class="gift-card-content">
+                        <div class="avatar">${firstLetter}</div>
+                        <div class="gift-details">
+                            <h4>${displayName}</h4>
+                            <p>🎁 ${gift.gift_item}</p>
+                        </div>
+                    </div>
+                `;
+                giftsList.appendChild(card);
             });
         }
 
-        // Inicializar al cargar la página
-        loadGifts();
+        // Evento al dar clic en Confirmar Regalo
+        if (giftForm) {
+            giftForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Detiene la recarga de página por completo
+                
+                const nameInput = document.getElementById('name');
+                const giftInput = document.getElementById('gift');
+
+                let name = nameInput ? nameInput.value.trim() : 'Anónimo';
+                if (name === '') name = 'Anónimo';
+                
+                const gift_item = giftInput.value.trim();
+                if (gift_item === '') {
+                    alert("Por favor, escribe qué regalo vas a llevar.");
+                    return;
+                }
+
+                // Guardar en la memoria local (localStorage)
+                const savedGifts = JSON.parse(localStorage.getItem('my_shower_gifts')) || [];
+                
+                // Creamos el nuevo regalo
+                const newGift = {
+                    name: name,
+                    gift_item: gift_item,
+                    created_at: new Date().toISOString()
+                };
+
+                // Lo agregamos al principio de la lista
+                savedGifts.unshift(newGift);
+
+                // Guardamos la lista actualizada
+                localStorage.setItem('my_shower_gifts', JSON.stringify(savedGifts));
+
+                // Limpiamos los campos del formulario
+                if (nameInput) nameInput.value = '';
+                giftInput.value = '';
+
+                // Alerta de éxito e inmediatamente actualizamos la lista en pantalla
+                alert("¡Regalo confirmado con éxito! 🎉");
+                loadGiftsLocal();
+            });
+        }
+
+        // Cargar los regalos al abrir la página
+        loadGiftsLocal();
     </script>
 </body>
 </html>
