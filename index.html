@@ -43,12 +43,12 @@
             border: 1px solid rgba(242, 186, 54, 0.12);
         }
 
-        /* BANNER CON FONDO DE HEXÁGONOS/PANAL AMARILLO */
+        /* BANNER CON FONDO DE PANAL AMARILLO */
         .hero-banner {
             position: relative;
             width: 100%;
             height: 280px;
-            background-color: #fbe6c4;
+            background-color: #fcefdc;
             /* Patrón geométrico de panal de abejas */
             background-image: 
                 radial-gradient(circle at 50% 50%, transparent 45%, #ffffff 45%, #ffffff 55%, transparent 55%),
@@ -203,7 +203,7 @@
 
         /* Lista de regalos agregados */
         .gifts-list {
-            max-height: 350px;
+            max-height: 400px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -211,10 +211,10 @@
         .gift-card {
             background-color: #ffffff;
             border-left: 5px solid var(--accent);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(80, 68, 67, 0.04);
             border-top: 1px solid #f9f5f0;
             border-right: 1px solid #f9f5f0;
             border-bottom: 1px solid #f9f5f0;
@@ -242,15 +242,15 @@
         }
 
         .gift-details h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             color: var(--text-dark);
         }
 
         .gift-details p {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .footer-note {
@@ -258,7 +258,7 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             font-style: italic;
-            margin-top: 20px;
+            margin-top: 25px;
             font-family: 'Montserrat', sans-serif;
         }
     </style>
@@ -327,52 +327,71 @@
             </form>
 
             <div class="gifts-list" id="giftsList">
-                </div>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Cargando lista común...</p>
+            </div>
 
             <p class="footer-note">¡Gracias por acompañarnos! 💛</p>
         </div>
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // Tu conexión exacta a Supabase
+        const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnYWJ2dm14eGhkZ3BxZXdjamh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwNjAwODEsImV4cCI6MjA5OTYzNjA4MX0.vAwlSSBNJDTg4bm0ZG6QB3O96kJjaHkVSMijPbOf-VU";
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const giftForm = document.getElementById('giftForm');
         const giftsList = document.getElementById('giftsList');
 
-        // Cargar los regalos guardados localmente
-        function loadGiftsLocal() {
-            // Obtenemos los regalos de la memoria local
-            const savedGifts = JSON.parse(localStorage.getItem('my_shower_gifts')) || [];
-            
-            giftsList.innerHTML = '';
-            
-            if (savedGifts.length === 0) {
-                giftsList.innerHTML = `<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; margin-top: 20px;">¡Aún no hay regalos! Sé el primero en confirmar ✨</p>`;
-                return;
-            }
+        // Leer de la base de datos real en Supabase para que todos vean lo mismo
+        async function loadGiftsFromDatabase() {
+            try {
+                let { data: gifts, error } = await supabase
+                    .from('gifts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-            // Recorremos los regalos guardados para pintarlos
-            savedGifts.forEach(gift => {
-                const displayName = gift.name && gift.name.trim() !== '' ? gift.name : 'Anónimo';
-                const firstLetter = displayName.charAt(0).toUpperCase();
-                const card = document.createElement('div');
-                card.className = 'gift-card';
-                card.innerHTML = `
-                    <div class="gift-card-content">
-                        <div class="avatar">${firstLetter}</div>
-                        <div class="gift-details">
-                            <h4>${displayName}</h4>
-                            <p>🎁 ${gift.gift_item}</p>
+                if (error) {
+                    console.error(error);
+                    giftsList.innerHTML = `<p style="color: red; text-align: center; font-size: 0.9rem;">Error al sincronizar regalos.</p>`;
+                    return;
+                }
+
+                giftsList.innerHTML = '';
+                
+                if (!gifts || gifts.length === 0) {
+                    giftsList.innerHTML = `<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; margin-top: 20px;">¡Aún no hay regalos! Sé el primero en confirmar ✨</p>`;
+                    return;
+                }
+
+                gifts.forEach(gift => {
+                    const displayName = gift.name && gift.name.trim() !== '' ? gift.name : 'Anónimo';
+                    const firstLetter = displayName.charAt(0).toUpperCase();
+                    const card = document.createElement('div');
+                    card.className = 'gift-card';
+                    card.innerHTML = `
+                        <div class="gift-card-content">
+                            <div class="avatar">${firstLetter}</div>
+                            <div class="gift-details">
+                                <h4>${displayName}</h4>
+                                <p>🎁 ${gift.gift_item}</p>
+                            </div>
                         </div>
-                    </div>
-                `;
-                giftsList.appendChild(card);
-            });
+                    `;
+                    giftsList.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+            }
         }
 
-        // Evento al dar clic en Confirmar Regalo
+        // Guardar nuevo regalo directamente en la base de datos global
         if (giftForm) {
-            giftForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Detiene la recarga de página por completo
+            giftForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
                 
                 const nameInput = document.getElementById('name');
                 const giftInput = document.getElementById('gift');
@@ -386,34 +405,25 @@
                     return;
                 }
 
-                // Guardar en la memoria local (localStorage)
-                const savedGifts = JSON.parse(localStorage.getItem('my_shower_gifts')) || [];
-                
-                // Creamos el nuevo regalo
-                const newGift = {
-                    name: name,
-                    gift_item: gift_item,
-                    created_at: new Date().toISOString()
-                };
+                // Guardar en tu tabla 'gifts' de Supabase
+                const { data, error } = await supabase
+                    .from('gifts')
+                    .insert([{ name: name, gift_item: gift_item }]);
 
-                // Lo agregamos al principio de la lista
-                savedGifts.unshift(newGift);
-
-                // Guardamos la lista actualizada
-                localStorage.setItem('my_shower_gifts', JSON.stringify(savedGifts));
-
-                // Limpiamos los campos del formulario
-                if (nameInput) nameInput.value = '';
-                giftInput.value = '';
-
-                // Alerta de éxito e inmediatamente actualizamos la lista en pantalla
-                alert("¡Regalo confirmado con éxito! 🎉");
-                loadGiftsLocal();
+                if (error) {
+                    alert("Tuvimos un error al guardar tu regalo. Por favor, inténtalo de nuevo.");
+                    console.error(error);
+                } else {
+                    if (nameInput) nameInput.value = '';
+                    giftInput.value = '';
+                    alert("¡Regalo confirmado con éxito! 🎉 Ahora todos lo verán.");
+                    loadGiftsFromDatabase();
+                }
             });
         }
 
-        // Cargar los regalos al abrir la página
-        loadGiftsLocal();
+        // Cargar al iniciar
+        loadGiftsFromDatabase();
     </script>
 </body>
 </html>
