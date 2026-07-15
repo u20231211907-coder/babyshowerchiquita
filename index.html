@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Lista de Regalos</title>
-    <!-- Google Fonts para la tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -50,7 +49,7 @@
         }
 
         .hero-card {
-            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('https://i.ibb.co/3ykCjV0p/abejita-miel.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('https://cgabvvmxxhdgpqewcjhw.supabase.co/storage/v1/object/public/gifts/abejita.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 20px;
@@ -253,7 +252,6 @@
 <body>
 
     <div class="container">
-        <!-- COLUMNA IZQUIERDA -->
         <div class="left-column">
             <div class="hero-card">
                 <h1>Una princesita<br>llega a endulzar<br>nuestras vidas</h1>
@@ -273,13 +271,11 @@
             </div>
         </div>
 
-        <!-- COLUMNA DERECHA -->
         <div class="right-column">
             <div class="wall-header">
                 <h2>Regalos Confirmados 🎁</h2>
             </div>
 
-            <!-- Formulario interactivo -->
             <form class="gift-form" id="giftForm">
                 <div class="form-group">
                     <label for="nameInput">Tu Nombre (o déjalo vacío para Anónimo)</label>
@@ -292,14 +288,11 @@
                 <button type="submit" class="submit-btn">Confirmar Regalo ✨</button>
             </form>
 
-            <!-- Contenedor donde se listan los regalos en tiempo real -->
             <div class="gifts-list" id="giftsList">
-                <!-- Los regalos se cargarán aquí dinámicamente -->
-            </div>
+                </div>
         </div>
     </div>
 
-    <!-- Integración de Supabase para la base de datos en tiempo real -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
