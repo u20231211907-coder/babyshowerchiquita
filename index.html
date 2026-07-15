@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Lista de Regalos</title>
-    <!-- Google Fonts para la tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -50,7 +49,7 @@
         }
 
         .hero-card {
-            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519689680058-324335c77ebe?q=80&w=1000');
+            background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=1000');
             background-size: cover;
             background-position: center;
             border-radius: 20px;
@@ -69,7 +68,7 @@
             color: #ffffff;
             line-height: 1.2;
             font-weight: 500;
-            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.7);
         }
 
         .info-grid {
@@ -253,7 +252,6 @@
 <body>
 
     <div class="container">
-        <!-- COLUMNA IZQUIERDA -->
         <div class="left-column">
             <div class="hero-card">
                 <h1>Una princesita<br>llega a endulzar<br>nuestras vidas</h1>
@@ -263,7 +261,7 @@
                 <div class="info-box">
                     <p>Hola, hola, hola. Qué alegría tenerte aquí celebrando con nosotros la pronta llegada de nuestra bebé.</p>
                     <br>
-                    <p>Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, agradecemos de corazón pañales preferiblemente etapa 2-3-4.</p>
+                    <p>Tu presencia y tu cariño son lo más importante. Si deseas tener un detalle con la bebé, el regalo es completamente a tu gusto, agradeciendo de corazón que lo acompañes con pañales preferiblemente etapa 2-3-4.</p>
                 </div>
                 <div class="info-box">
                     <p><strong>Los papás no tienen acceso directo a esta lista</strong>, así que puedes escribir con total tranquilidad.</p>
@@ -273,17 +271,15 @@
             </div>
         </div>
 
-        <!-- COLUMNA DERECHA -->
         <div class="right-column">
             <div class="wall-header">
                 <h2>Regalos Confirmados 🎁</h2>
             </div>
 
-            <!-- Formulario interactivo -->
             <form class="gift-form" id="giftForm">
                 <div class="form-group">
-                    <label for="nameInput">Tu Nombre (Opcional / Familiar)</label>
-                    <input type="text" id="nameInput" placeholder="Ej. Juancho, Margarita e Isabella" required>
+                    <label for="nameInput">Tu Nombre (o déjalo vacío para Anónimo)</label>
+                    <input type="text" id="nameInput" placeholder="Ej. Juancho, o déjalo en blanco">
                 </div>
                 <div class="form-group">
                     <label for="giftInput">¿Qué regalo vas a llevar?</label>
@@ -292,14 +288,11 @@
                 <button type="submit" class="submit-btn">Confirmar Regalo ✨</button>
             </form>
 
-            <!-- Contenedor donde se listan los regalos en tiempo real -->
             <div class="gifts-list" id="giftsList">
-                <!-- Los regalos se cargarán aquí dinámicamente -->
-            </div>
+                </div>
         </div>
     </div>
 
-    <!-- Integración de Supabase para la base de datos en tiempo real -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // CONFIGURACIÓN DE TU BASE DE DATOS SUPABASE
@@ -325,14 +318,15 @@
 
             giftsList.innerHTML = '';
             gifts.forEach(gift => {
-                const firstLetter = gift.name ? gift.name.charAt(0) : 'A';
+                const displayName = gift.name && gift.name.trim() !== '' ? gift.name : 'Anónimo';
+                const firstLetter = displayName.charAt(0);
                 const card = document.createElement('div');
                 card.className = 'gift-card';
                 card.innerHTML = `
                     <div class="gift-card-content">
                         <div class="avatar">${firstLetter}</div>
                         <div class="gift-details">
-                            <h4>${gift.name || 'Anónimo'}</h4>
+                            <h4>${displayName}</h4>
                             <p>🎁 ${gift.gift_item}</p>
                         </div>
                     </div>
@@ -344,7 +338,10 @@
         // Evento al enviar el formulario (guardar nuevo regalo)
         giftForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('nameInput').value || 'Anónimo';
+            let name = document.getElementById('nameInput').value.trim();
+            if (name === '') {
+                name = 'Anónimo';
+            }
             const gift_item = document.getElementById('giftInput').value;
 
             const { data, error } = await supabase
@@ -364,5 +361,6 @@
         loadGifts();
     </script>
 </body>
-  </html>
+</html>
+
   
