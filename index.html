@@ -48,27 +48,35 @@
             background-color: var(--bg-color);
         }
 
+        /* Hero card con fondo amarillo claro sólido sin imágenes propensas a fallos */
         .hero-card {
-            background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('https://cgabvvmxxhdgpqewcjhw.supabase.co/storage/v1/object/public/gifts/abejita.jpg');
-            background-size: cover;
-            background-position: center;
+            background-color: #fdf6e2;
+            border: 2px dashed #e6cb85;
             border-radius: 20px;
             padding: 40px;
             height: 450px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+
+        /* Emoji de abejita grande en el centro para dar el toque temático */
+        .hero-card::before {
+            content: "🐝";
+            font-size: 5rem;
+            margin-bottom: 20px;
         }
 
         .hero-card h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
-            color: #ffffff;
+            color: #5c4d3c;
             line-height: 1.2;
-            font-weight: 500;
-            text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.7);
+            font-weight: 600;
         }
 
         .info-grid {
