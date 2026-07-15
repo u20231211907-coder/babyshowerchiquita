@@ -50,7 +50,7 @@
         }
 
         .hero-card {
-            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1544161513-0179fe746fd5?q=80&w=1000');
+            background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.4)), url('https://i.pinimg.com/736x/21/df/b5/21dfb5585ee5f5647a50787e9cf41d26.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 20px;
@@ -302,7 +302,6 @@
     <!-- Integración de Supabase para la base de datos en tiempo real -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // CONFIGURACIÓN DE TU BASE DE DATOS SUPABASE
         const SUPABASE_URL = "https://cgabvvmxxhdgpqewcjhw.supabase.co";
         const SUPABASE_ANON_KEY = "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnYWJ2dm14eGhkZ3BxZXdjamh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwNjAwODEsImV4cCI6Mj95NjMwODF9.vAwlSSBNJDTg4bm0ZG6QB3O96kJjaHkVSMijPbOf-VU";
 
@@ -311,7 +310,6 @@
         const giftForm = document.getElementById('giftForm');
         const giftsList = document.getElementById('giftsList');
 
-        // Función para cargar los regalos desde la base de datos
         async function loadGifts() {
             let { data: gifts, error } = await supabase
                 .from('gifts')
@@ -342,7 +340,6 @@
             });
         }
 
-        // Evento al enviar el formulario (guardar nuevo regalo)
         giftForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             let name = document.getElementById('nameInput').value.trim();
@@ -360,11 +357,10 @@
                 console.error(error);
             } else {
                 giftForm.reset();
-                loadGifts(); // Recargar la lista interactiva
+                loadGifts();
             }
         });
 
-        // Cargar los datos al abrir la página
         loadGifts();
     </script>
 </body>
